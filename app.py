@@ -3,13 +3,14 @@ import cv2
 import os
 import uuid
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=os.getcwd())  # Pointing to the current directory
+
 UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html')  # This will now find the index.html in the main directory
 
 @app.route('/upload', methods=['POST'])
 def upload():
