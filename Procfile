@@ -1,1 +1,1 @@
-web: gunicorn PixelCraft
+web: gunicorn app:app
