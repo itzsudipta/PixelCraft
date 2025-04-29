@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PixelCraft - Image Editor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-20 px-6 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-5xl font-bold mb-4">Welcome to PixelCraft</h1>
+      <p class="text-lg mb-6">A powerful web-based image editor — Grayscale, Crop, Flip, Resize, and more!</p>
+      <a href="#tools" class="bg-white text-indigo-600 font-semibold px-6 py-3 rounded-full shadow hover:shadow-lg transition">
+        Start Editing <i class="fas fa-arrow-right ml-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Tools Section -->
+  <section id="tools" class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-indigo-700 mb-10">Image Processing Features</h2>
+
+      <!-- Tool Buttons -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center mb-10">
+        <button onclick="applyEdit('grayscale')" class="bg-gray-100 p-6 rounded-xl shadow hover:shadow-lg transition">
+          <i class="fas fa-adjust text-3xl text-indigo-600 mb-2"></i>
+          <h3 class="text-lg font-semibold">Grayscale</h3>
+        </button>
+        <button onclick="applyEdit('flip-horizontal')" class="bg-gray-100 p-6 rounded-xl shadow hover:shadow-lg transition">
+          <i class="fas fa-arrows-alt-h text-3xl text-indigo-600 mb-2"></i>
+          <h3 class="text-lg font-semibold">Flip Horizontal</h3>
+        </button>
+        <button onclick="applyEdit('flip-vertical')" class="bg-gray-100 p-6 rounded-xl shadow hover:shadow-lg transition">
+          <i class="fas fa-arrows-alt-v text-3xl text-indigo-600 mb-2"></i>
+          <h3 class="text-lg font-semibold">Flip Vertical</h3>
+        </button>
+        <button onclick="applyEdit('resize')" class="bg-gray-100 p-6 rounded-xl shadow hover:shadow-lg transition">
+          <i class="fas fa-expand-arrows-alt text-3xl text-indigo-600 mb-2"></i>
+          <h3 class="text-lg font-semibold">Resize (200x200)</h3>
+        </button>
+      </div>
+
+      <!-- Advanced Resize Input -->
+      <div class="text-center mb-8">
+        <h4 class="text-lg font-semibold text-indigo-700 mb-2">Custom Resize</h4>
+        <div class="flex flex-wrap justify-center gap-4">
+          <input type="number" id="resizeWidth" placeholder="Width" class="border p-2 rounded w-32" min="1">
+          <input type="number" id="resizeHeight" placeholder="Height" class="border p-2 rounded w-32" min="1">
+          <button onclick="applyCustomResize()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
+            Apply Custom Resize
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preview + Upload Section -->
+  <section class="bg-gray-50 py-16">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h2 class="text-2xl font-bold mb-6 text-indigo-700">Live Preview</h2>
+      <form id="uploadForm" enctype="multipart/form-data" class="mb-8">
+        <!-- Updated Choose File Button with Tailwind CSS Enhancements -->
+        <div class="mb-6">
+          <label for="imageInput"
+            class="bg-indigo-600 text-white font-semibold px-6 py-3 rounded-full shadow-md hover:bg-indigo-700 transition duration-300 inline-flex items-center justify-center cursor-pointer">
+            <i class="fas fa-upload text-lg mr-2"></i> Choose a file
+            <input type="file" id="imageInput" name="image" accept="image/*" class="hidden" required
+              onchange="showFileName()" />
+          </label>
+          <!-- Display selected file name here -->
+          <p id="fileName" class="mt-2 text-sm text-gray-600"></p>
+        </div>
+        <br>
+        <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition">
+          Upload Image
+        </button>
+      </form>
+
+
+      <div class="border-2 border-dashed border-indigo-300 bg-white p-10 rounded-xl shadow-md">
+        <p class="text-gray-500" id="previewText">Your edited image will appear here...</p>
+        <img id="previewImage" class="mt-6 mx-auto hidden max-w-full rounded" src="#" alt="Image Preview">
+        <a id="downloadBtn" href="#" download class="hidden mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+          Download Edited Image
+        </a>
+      </div>
+    </div>
+  </section>
+
+  
+<!-- Developer Credits Section -->
+<section class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-16">
+  <div class="max-w-4xl mx-auto text-center text-white">
+    <h2 class="text-3xl font-bold mb-4">Developed by <span class="text-yellow-300">Sudipta Sarkar</span></h2>
+    <p class="text-lg font-semibold mb-6">A passionate developer bringing this project to life with ❤️</p>
+    
+    <!-- Developer's Social Links with Icons -->
+    <div class="flex justify-center gap-8 mt-6 text-3xl">
+      <a href="https://github.com/sudiptosarkar" target="_blank" class="transform hover:scale-110 transition-transform duration-300">
+        <i class="fab fa-github text-white hover:text-black"></i>
+      </a>
+      <a href="https://linkedin.com/in/sudiptosarkar" target="_blank" class="transform hover:scale-110 transition-transform duration-300">
+        <i class="fab fa-linkedin text-white hover:text-blue-600"></i>
+      </a>
+      <a href="https://twitter.com/sudiptosarkar" target="_blank" class="transform hover:scale-110 transition-transform duration-300">
+        <i class="fab fa-twitter text-white hover:text-blue-400"></i>
+      </a>
+    </div>
+
+    <div class="mt-6">
+      <p class="text-sm text-gray-200">Feel free to connect with me for any feedback or collaboration!</p>
+    </div>
+  </div>
+</section>
+
+
+  <footer class="bg-gray-800 text-white py-6 text-center text-sm">
+    &copy; 2025 PixelCraft | All Rights Reserved
+  </footer>
+
+  <script>
+    let currentFilename = '';
+
+    document.getElementById('uploadForm').onsubmit = async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const response = await fetch('/upload', {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.json();
+      currentFilename = result.filename;
+      const previewImage = document.getElementById('previewImage');
+      previewImage.src = "/static/uploads/" + result.filename + '?t=' + new Date().getTime();
+      previewImage.classList.remove('hidden');
+      document.getElementById('previewText').style.display = 'none';
+      document.getElementById('downloadBtn').href = previewImage.src;
+      document.getElementById('downloadBtn').classList.remove('hidden');
+    };
+
+    async function applyEdit(action) {
+      if (!currentFilename) return alert("Please upload an image first.");
+      const response = await fetch(`/${action}/${currentFilename}`);
+      const result = await response.json();
+      currentFilename = result.filename;
+      const previewImage = document.getElementById('previewImage');
+      previewImage.src = `/static/uploads/${currentFilename}?t=` + new Date().getTime();
+      document.getElementById('downloadBtn').href = previewImage.src;
+    }
+
+    async function applyCustomResize() {
+      if (!currentFilename) return alert("Please upload an image first.");
+      const width = document.getElementById('resizeWidth').value;
+      const height = document.getElementById('resizeHeight').value;
+      if (!width || !height || width <= 0 || height <= 0) {
+        return alert("Please enter valid width and height values.");
+      }
+      const response = await fetch(`/resize/${currentFilename}/${width}/${height}`);
+      const result = await response.json();
+      currentFilename = result.filename;
+      const previewImage = document.getElementById('previewImage');
+      previewImage.src = `/static/uploads/${currentFilename}?t=` + new Date().getTime();
+      document.getElementById('downloadBtn').href = previewImage.src;
+    }
+    
+  function showFileName() {
+    const fileInput = document.getElementById('imageInput');
+    const fileName = fileInput.files[0]?.name || 'No file selected';
+    document.getElementById('fileName').textContent = fileName;
+  }
+
+
+  </script>
+
+</body>
+</html>
