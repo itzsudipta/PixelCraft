@@ -13,9 +13,13 @@ PixelCraft is a powerful, web-based image editor built with Flask and Tailwind C
 - **Live Image Preview**: See your edited image instantly with live preview functionality.
 - **Download Image**: After editing, download the modified image.
 
-## Demo
+## Frontend Overview
+ 
+The frontend of PixelCraft is designed with simplicity and usability in mind. Below is a preview of the interface:
 
-You can check out a live demo of PixelCraft on the [Demo Link](#).
+![Frontend Overview](./templates/FrontendView.png)
+
+
 
 ## Tech Stack
 
