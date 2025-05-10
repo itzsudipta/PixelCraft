@@ -13,7 +13,7 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload_image():
-    file = request.files['image']
+    file = request.files.get('image')
     if file:
         filename = f"{uuid.uuid4().hex}.png"
         filepath = os.path.join(UPLOAD_FOLDER, filename)
@@ -82,5 +82,5 @@ def crop_image(filename, x, y, width, height):
 
     return jsonify({'filename': new_filename})
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# Export the app for Vercel
+app = app
